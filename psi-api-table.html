@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Singapore PSI API — Data Reference</title>
+  <style>
+    :root { color-scheme: light; --ink:#172b3a; --muted:#5d7180; --line:#d9e2e8; --wash:#f3f7f9; --accent:#087e8b; }
+    * { box-sizing:border-box; }
+    body { margin:0; padding:clamp(1rem,4vw,3rem); background:#fff; color:var(--ink); font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    main { max-width:1000px; margin:auto; }
+    h1 { margin:0 0 .35rem; font-size:clamp(1.8rem,4vw,2.5rem); line-height:1.2; }
+    h2 { margin:2.2rem 0 .65rem; font-size:1.3rem; }
+    p { color:var(--muted); margin:.3rem 0 1rem; }
+    code { background:var(--wash); padding:.12rem .35rem; border-radius:4px; color:#174e59; }
+    .callout { border-left:4px solid var(--accent); background:var(--wash); padding:.8rem 1rem; border-radius:0 6px 6px 0; }
+    .table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:8px; }
+    table { width:100%; border-collapse:collapse; min-width:650px; }
+    th,td { padding:.72rem .85rem; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+    th { background:#edf4f6; color:#274656; font-size:.9rem; }
+    tr:last-child td { border-bottom:0; }
+    tbody tr:nth-child(even) { background:#fafcfd; }
+    .metric { font-weight:650; white-space:nowrap; }
+    .region { text-transform:capitalize; }
+    footer { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--line); color:var(--muted); font-size:.9rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Singapore PSI API</h1>
+  <p>Quick reference for the pollutant and PSI fields documented in the supplied OpenAPI JSON.</p>
+
+  <div class="callout"><strong>Endpoint:</strong> <code>GET https://api-open.data.gov.sg/v2/real-time/api/psi</code><br>
+    Returns the latest reading by default, or readings for a requested date/time. Values are reported separately for East, West, North, South and Central Singapore.</div>
+
+  <h2>Reading fields</h2>
+  <p>Each field below has a value for each of the five regions. The source schema describes these readings in micrograms per cubic metre.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Field in JSON</th><th>Meaning / averaging period</th><th>East</th><th>West</th><th>North</th><th>South</th><th>Central</th></tr></thead>
+    <tbody>
+      <tr><td class="metric">psi_twenty_four_hourly</td><td>24-hour PSI</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">psi_three_hourly</td><td>3-hour PSI</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">co_sub_index</td><td>Carbon monoxide sub-index</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">co_eight_hour_max</td><td>Carbon monoxide, 8-hour maximum</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">no2_one_hour_max</td><td>Nitrogen dioxide, 1-hour maximum</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">so2_sub_index</td><td>Sulfur dioxide sub-index</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">so2_twenty_four_hourly</td><td>Sulfur dioxide, 24-hour</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">o3_sub_index</td><td>Ozone sub-index</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">o3_eight_hour_max</td><td>Ozone, 8-hour maximum</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">pm10_sub_index</td><td>PM10 sub-index</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">pm10_twenty_four_hourly</td><td>PM10, 24-hour</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">pm25_sub_index</td><td>PM2.5 sub-index</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+      <tr><td class="metric">pm25_twenty_four_hourly</td><td>PM2.5, 24-hour</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td><td>Value</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Query parameters</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Parameter</th><th>Type</th><th>Purpose</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><code>date</code></td><td>String</td><td>Filter by Singapore date, or request the latest reading at a particular date and time.</td><td><code>2024-07-16</code><br><code>2024-07-16T23:59:00</code></td></tr>
+      <tr><td><code>paginationToken</code></td><td>String</td><td>Fetch the next page when a date-filtered response provides a pagination token.</td><td>Token from previous response</td></tr>
+      <tr><td><code>x-api-key</code> (header)</td><td>String, optional</td><td>API key for higher rate limits.</td><td>Provided API key</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Response metadata</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Field</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>data.regionMetadata</code></td><td>Region names and label latitude/longitude coordinates.</td></tr>
+      <tr><td><code>data.items[].date</code></td><td>Date associated with the reading.</td></tr>
+      <tr><td><code>data.items[].timestamp</code></td><td>Time of the reading.</td></tr>
+      <tr><td><code>data.items[].updatedTimestamp</code></td><td>Last update time.</td></tr>
+      <tr><td><code>data.items[].readings</code></td><td>The regional measurements listed above.</td></tr>
+    </tbody>
+  </table></div>
+  <footer>This JSON is an API specification, so the regional cells above describe where each value appears; they are not live PSI readings.</footer>
+</main>
+</body>
+</html>
